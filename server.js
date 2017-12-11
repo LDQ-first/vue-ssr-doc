@@ -40,11 +40,18 @@ server.get('*', (req, res) => {
     `,
     url: req.url 
   } 
-  const app = createApp(context)
-  renderer.renderToString(app, context, (err, html) => {
-    // 处理错误……
-    res.end(html)
+  createApp(context).then(app => {
+     renderer.renderToString(app, context, (err, html) => {
+      // 处理错误……
+      if (err) {
+        console.log('err: ', err)
+        res.status(500).end('Internal Server Error')
+        return
+      }
+      res.end(html)
+    })
   })
+ 
 })
 server.listen(8080)
 console.log("open http://localhost:8080")
