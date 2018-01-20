@@ -20,6 +20,7 @@ export function createApp (context) {
     router,
     store
   })
+  console.log(app)
   // 暴露 app, router 和 store
   return { app, router, store }
 }

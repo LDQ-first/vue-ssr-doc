@@ -1,13 +1,22 @@
 const Vue = require('vue')
 const express = require('express')
 const server = express()
-const renderer = require('vue-server-renderer').createRenderer({
-  template: require('fs').readFileSync('./src/index.template.html', 'utf-8')
+
+
+const serverBundle = require('./dist/vue-ssr-server-bundle.json')
+const clientManifest = require('./dist/vue-ssr-client-manifest.json')
+
+
+
+const renderer = require('vue-server-renderer').createBundleRenderer(serverBundle, {
+  runInNewContext: false, // 推荐
+  template: require('fs').readFileSync('./src/index.template.html', 'utf-8'), // （可选）页面模板
+  clientManifest // （可选）客户端构建 manifest
 })
 //const createApp = require('./src/app.js')
 // const createApp = require('./dist/main.server.js').default
-const createApp = require('./dist/main.server.js').default
-console.log('createApp: ', createApp)
+// const createApp = require('./dist/main.server.js').default
+// console.log('createApp: ', createApp)
 
 server.use('/dist', express.static('./dist'))
 
@@ -52,8 +61,9 @@ server.get('*', (req, res) => {
       }
       res.end(html)
     })*/
-  createApp(context).then(app => {
-     renderer.renderToString(app, context, (err, html) => {
+  // createApp(context).then(app => {
+  //   renderer.renderToString(app, context, (err, html) => {
+     renderer.renderToString(context, (err, html) => {
       // 处理错误……
       if (err) {
         console.log('err: ', err)
@@ -62,7 +72,7 @@ server.get('*', (req, res) => {
       }
       res.end(html)
     })
-  })
+  // })
  
 })
 server.listen(8080)

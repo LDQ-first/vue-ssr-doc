@@ -14,6 +14,9 @@ export default context => {
           if (!matchedComponents) {
             return reject({ code: 404 })
           }
+
+          console.log('some thing')
+
           // 对所有匹配的路由组件调用 `asyncData()`
           Promise.all(matchedComponents.map(Component => {
             if (Component.asyncData) {
