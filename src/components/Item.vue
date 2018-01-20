@@ -6,8 +6,13 @@
 <script>
 // 在这里导入模块，而不是在 `store/index.js` 中
 import fooStoreModule from '../store/modules/foo'
+import titleMixin from '../title-mixin.js'
 
 export default {
+  mixins: [titleMixin],
+  title () {
+    return this.item.text
+  },
   asyncData ({ store, route }) {
     // 使用 store.registerModule 惰性注册(lazy-register)这个模块
     store.registerModule('foo', fooStoreModule)

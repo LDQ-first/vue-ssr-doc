@@ -10,8 +10,8 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "wb": "npm run wbs && npm run wbc",
-    "wbc": "cross-env NODE_ENV=development webpack --config ./build/webpack.client.config.js",
-    "wbs": "cross-env NODE_ENV=development webpack --config ./build/webpack.server.config.js",
+    "wbc": "cross-env NODE_ENV=production webpack --config ./build/webpack.client.config.js",
+    "wbs": "cross-env NODE_ENV=production webpack --config ./build/webpack.server.config.js",
     "bgit": "npm run build && git add . && git commit -m 'modify' && git push origin master",
     "git": "git add . && git commit -m 'modify' && git push origin master"
   },
