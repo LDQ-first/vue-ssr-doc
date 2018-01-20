@@ -5,7 +5,9 @@ const renderer = require('vue-server-renderer').createRenderer({
   template: require('fs').readFileSync('./src/index.template.html', 'utf-8')
 })
 //const createApp = require('./src/app.js')
+// const createApp = require('./dist/main.server.js').default
 const createApp = require('./dist/main.server.js').default
+console.log('createApp: ', createApp)
 
 server.use('/dist', express.static('./dist'))
 
@@ -40,7 +42,17 @@ server.get('*', (req, res) => {
     `,
     url: req.url 
   } 
-  createApp(context).then(app => {
+  const app = createApp(context)
+  renderer.renderToString(app, context, (err, html) => {
+      // 处理错误……
+      if (err) {
+        console.log('err: ', err)
+        res.status(500).end('Internal Server Error')
+        return
+      }
+      res.end(html)
+    })
+ /* createApp(context).then(app => {
      renderer.renderToString(app, context, (err, html) => {
       // 处理错误……
       if (err) {
@@ -50,7 +62,7 @@ server.get('*', (req, res) => {
       }
       res.end(html)
     })
-  })
+  })*/
  
 })
 server.listen(8080)
