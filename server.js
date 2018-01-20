@@ -42,7 +42,7 @@ server.get('*', (req, res) => {
     `,
     url: req.url 
   } 
-  const app = createApp(context)
+  /*const app = createApp(context)
   renderer.renderToString(app, context, (err, html) => {
       // 处理错误……
       if (err) {
@@ -51,8 +51,8 @@ server.get('*', (req, res) => {
         return
       }
       res.end(html)
-    })
- /* createApp(context).then(app => {
+    })*/
+  createApp(context).then(app => {
      renderer.renderToString(app, context, (err, html) => {
       // 处理错误……
       if (err) {
@@ -62,7 +62,7 @@ server.get('*', (req, res) => {
       }
       res.end(html)
     })
-  })*/
+  })
  
 })
 server.listen(8080)
