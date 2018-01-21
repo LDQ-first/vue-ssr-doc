@@ -88,20 +88,20 @@ server.get('*', (req, res) => {
     })*/
   // createApp(context).then(app => {
   //   renderer.renderToString(app, context, (err, html) => {
-    //  renderer.renderToString(context, (err, html) => {
-    //   // 处理错误……
-    //   if (err) {
-    //     console.log('err: ', err)
-    //     res.status(500).end('Internal Server Error')
-    //     return
-    //   }
-    //   res.end(html)
-    //   if (cacheable) {
-    //     microCache.set(req.url, html)
-    //   }
-    // })
+     renderer.renderToString(context, (err, html) => {
+      // 处理错误……
+      if (err) {
+        console.log('err: ', err)
+        res.status(500).end('Internal Server Error')
+        return
+      }
+      res.end(html)
+      if (cacheable) {
+        microCache.set(req.url, html)
+      }
+    })
   // })
-   const stream = renderer.renderToStream(context)
+   /* const stream = renderer.renderToStream(context)
    
    let html = ''
     stream.on('data', data => {
@@ -119,7 +119,7 @@ server.get('*', (req, res) => {
       console.log('err: ', err)
         res.status(500).end('Internal Server Error')
       return
-    })
+    }) */
 })
 server.listen(8080)
 console.log("open http://localhost:8080")

@@ -4,6 +4,14 @@ import { createRouter } from './router.js'
 import { createStore } from './store'
 import { sync } from 'vuex-router-sync'
 
+import './styles/globa.css'
+
+import { Button, Select } from 'element-ui'
+import 'element-ui/lib/theme-chalk/base.css'
+Vue.use(Button)
+Vue.use(Select)
+
+
 export function createApp (context) {
   // 创建 router 和 store 实例
   const router = createRouter()
